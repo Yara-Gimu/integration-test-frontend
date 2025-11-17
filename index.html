@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار التكامل - يارا</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; margin: 0; }
+        .card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
+        h1 { color: #333; }
+        .status-box { margin-top: 20px; padding: 15px; border-radius: 8px; background-color: #eef; border: 1px solid #ccd; }
+        .loading { color: orange; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>اختبار الربط والتكامل 🔗</h1>
+        <p>Frontend (Vercel) ➡️ Backend (Render) ➡️ Database (TiDB)</p>
+        
+        <div id="result" class="status-box">
+            <span class="loading">جاري الاتصال بالخادم... ⏳</span>
+        </div>
+    </div>
+
+    <script>
+        // 🔴🔴 هام: استبدلي الرابط هذا برابط الباك اند حقك من ريندر 🔴🔴
+        const BACKEND_URL = "https://engdaytest.onrender.com"; 
+
+        fetch(BACKEND_URL)
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                if(data.status === "SUCCESS") {
+                    resultDiv.innerHTML = `<p class="success">✅ ${data.message}</p><p>${data.step}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p class="error">❌ ${data.message}</p>`;
+                }
+            })
+            .catch(err => {
+                document.getElementById('result').innerHTML = `<p class="error">❌ فشل الاتصال بالباك اند! تأكد من الرابط.</p>`;
+            });
+    </script>
+
+</body>
+</html>
